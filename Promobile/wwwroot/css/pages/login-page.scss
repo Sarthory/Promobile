@@ -1,0 +1,55 @@
+﻿@import "../mixins.scss";
+
+@include loading-spinner;
+
+@-webkit-keyframes autofill {
+    to {
+        color: #666;
+        background: transparent;
+    }
+}
+
+@keyframes autofill {
+    to {
+        color: #666;
+        background: transparent;
+    }
+}
+
+input:-webkit-autofill {
+    -webkit-animation-name: autofill;
+    animation-name: autofill;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+#login-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1 0 auto;
+
+    #loading-spinner {
+        display: none;
+        margin: 4px 42px 3px 0;
+    }
+
+    &::after {
+        content: "";
+        background: url("../../img/background.gif") no-repeat center;
+        background-size: cover;
+        opacity: 0.9;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        position: absolute;
+        z-index: -1;
+    } 
+}

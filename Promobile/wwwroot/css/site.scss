@@ -1,0 +1,30 @@
+﻿.navbar {
+    background: #0485fe !important;
+    color: #f2f2f2 !important;
+
+    .uk-navbar-toggle {
+        color: white !important;
+    }
+
+    .uk-navbar-nav {
+        .logged-user-name {
+            color: white !important;
+        }
+    }
+}
+
+.page-title {
+    border-bottom: 1px solid #ccc;
+    font-size: 1.2em;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: 600;
+}
+
+.page-title-small {
+    border-bottom: 1px solid #ccc;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: 600;
+}

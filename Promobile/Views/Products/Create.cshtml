@@ -1,0 +1,191 @@
+﻿@{
+    ViewData["Title"] = "Cadastrar Novo Produto";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var categories = ViewBag.Categories;
+}
+
+<h1 class="page-title">Cadastrar novo produto</h1>
+
+<div class="uk-container">
+
+    <form asp-action="CreateProduct" id="product-form" enctype="multipart/form-data">
+
+        @Html.AntiForgeryToken()
+
+        <fieldset class="uk-fieldset">
+
+            <div class="uk-grid-match uk-grid-small" uk-grid>
+                <div class="uk-width-1-2@m">
+                    <div class="uk-margin">
+                        <label class="uk-form-label" for="ProductName">Nome do produto</label>
+                        <div class="uk-form-controls">
+                            <input class="uk-input" id="ProductName" type="text" name="ProductName" placeholder="Nome" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="uk-width-1-4@m">
+                    <div class="uk-margin">
+                        <label class="uk-form-label" for="ProductCategory">Categoria</label>
+                        <select class="uk-select" id="ProductCategory" name="ProductCategory" required>
+                            <option disabled selected>Selecione</option>
+                            @foreach (var category in categories)
+                            {
+                                <option value="@category.Id">@category.Description</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="uk-width-1-4@m">
+                    <div class="uk-margin">
+                        <label class="uk-form-label" for="ExpiryDate">Data de Expiração</label>
+                        <div class="uk-form-controls">
+                            <input class="uk-input" id="ExpiryDate" type="date" name="ExpiryDate" placeholder="Data" required />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="uk-grid-match uk-grid-small" uk-grid>
+                <div class="uk-width-1-2">
+                    <div class="uk-margin">
+                        <label class="uk-form-label" for="FeaturedText">Texto de Destaque</label>
+                        <div class="uk-form-controls">
+                            <input class="uk-input" id="FeaturedText" type="text" name="FeaturedText" placeholder="Texto de destaque opcional" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="uk-width-1-6">
+                    <div class="uk-margin">
+                        <label class="uk-form-label" for="InCashPrice">Valor à Vista</label>
+                        <div class="uk-form-controls">
+                            <input class="uk-input" id="InCashPrice" type="text" name="InCashPrice" placeholder="R$" required />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="uk-width-1-6">
+                    <div class="uk-margin">
+                        <label class="uk-form-label" for="ForwardedPrice">Valor à Prazo</label>
+                        <div class="uk-form-controls">
+                            <input class="uk-input" id="ForwardedPrice" type="text" name="ForwardedPrice" placeholder="R$" required />
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="uk-width-1-6">
+                    <div class="uk-margin">
+                        <label class="uk-form-label" for="ParcelValue">Valor da Parcela</label>
+                        <div class="uk-form-controls">
+                            <input class="uk-input" id="ParcelValue" type="text" name="ParcelValue" placeholder="R$" required />
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="uk-grid-match uk-grid-small" uk-grid>
+                <div class="uk-width-1-2">
+                    <div class="uk-width-1-4">
+                        <div class="uk-margin">
+                            <label class="uk-form-label" for="InputParcelsQuantity">Entrada</label>
+                            <div class="uk-form-controls">
+                                <input class="uk-input uk-form-width-small" id="InputParcelsQuantity" type="text" name="InputParcelsQuantity" required />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="uk-width-1-4">
+                        <div class="uk-margin">
+                            <label class="uk-form-label" for="ParcelsQuantity">Parcelas</label>
+                            <div class="uk-form-controls">
+                                <input class="uk-input uk-form-width-small" id="ParcelsQuantity" type="text" name="ParcelsQuantity" required />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="uk-width-1-4">
+                        <div class="uk-margin">
+                            <label class="uk-form-label" for="YearlyTax">Taxa Anual</label>
+                            <div class="uk-form-controls">
+                                <input class="uk-input uk-form-width-small" id="YearlyTax" type="text" name="YearlyTax" required />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="uk-width-1-4">
+                        <div class="uk-margin">
+                            <label class="uk-form-label" for="MonthlyTax">Taxa Mensal</label>
+                            <div class="uk-form-controls">
+                                <input class="uk-input uk-form-width-small" id="MonthlyTax" type="text" name="MonthlyTax" required />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="uk-width-1-2">
+                    <div class="uk-width-large" style="display: flex;align-items: center;justify-content: space-between;">
+                        <div class="uk-margin">
+                            <label class="uk-form-label" for="productImage">Imagem do Produto</label><br />
+                            <div uk-form-custom="target: true">
+                                <input id="productImage" name="productImage" type="file" accept=".jpg, .jpeg, .png, .gif" onchange="document.getElementById('ProductImagePreview').src = window.URL.createObjectURL(this.files[0])" required>
+                                <input class="uk-input" type="text" placeholder="Clique para selecionar a imagem..." disabled style="width: 380px;">
+                            </div>
+                        </div>
+
+                        <div>
+                            <img id="ProductImagePreview" alt="ProductImage" width="100" style="margin-left: 25px; margin-top: 5px;" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr />
+
+            <div class="uk-margin uk-flex uk-flex-between">
+                <a href="@Url.Action("Index", "Home")" class="uk-button uk-button-danger">Cancelar</a>
+                <button type="submit" class="uk-button uk-button-primary">Salvar</button>
+            </div>
+
+        </fieldset>
+    </form>
+
+</div>
+
+@section Scripts
+{
+
+    <script type="text/javascript" src="~/lib/jquery.mask.min.js"></script>
+    <script type="text/javascript" src="~/lib/jquery.maskMoney.min.js"></script>
+
+    @if (ViewBag.SuccessMessage != null)
+    {
+        <script>
+            swal("Operação concluída", `@ViewBag.SuccessMessage`, "success");
+        </script>
+    }
+
+    @if (ViewBag.ErrorMessage != null)
+    {
+        <script>
+            swal("Ocorreu um erro", `@ViewBag.ErrorMessage`, "error");
+        </script>
+    }
+
+    <script>
+        $(function () {
+            $('[type="date"]').prop('min', function () {
+                return new Date().toJSON().split('T')[0];
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            $("#InCashPrice").maskMoney({ thousands: '.', decimal: ',', allowZero: true, prefix: 'R$ ' });
+            $("#ForwardedPrice").maskMoney({ thousands: '.', decimal: ',', allowZero: true, prefix: 'R$ ' });
+            $("#ParcelValue").maskMoney({ thousands: '.', decimal: ',', allowZero: true, prefix: 'R$ ' });
+            $("#MonthlyTax").mask('##0,00%', { reverse: true });
+            $("#YearlyTax").mask('##0,00%', { reverse: true });
+        });
+    </script>
+}

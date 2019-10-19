@@ -1,0 +1,56 @@
+﻿@model Promobile.ViewModels.LoginViewModel
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "_Layout _Login";
+}
+
+<link rel="stylesheet" href="~/css/pages/login-page.min.css" />
+
+@using (Html.BeginForm("Login", "Login", FormMethod.Post, new { id = "login-form" }))
+{
+    <div class="uk-card uk-card-default uk-card-body">
+
+        <div class="uk-margin uk-card-title uk-flex uk-flex-center">
+            <img src="~/img/logo-magalu.png" width="200" />
+        </div>
+
+        <fieldset class="uk-fieldset">
+
+            <div class="uk-margin">
+                <div class="uk-inline">
+                    <span class="uk-form-icon" uk-icon="icon: user"></span>
+                    <input class="uk-input" type="text" name="username">
+                </div>
+            </div>
+
+            <div class="uk-margin">
+                <div class="uk-inline">
+                    <span class="uk-form-icon" uk-icon="icon: lock"></span>
+                    <input class="uk-input" type="password" name="password">
+                </div>
+            </div>
+
+            @if (Model.HasErrors)
+            {
+                <div class="uk-flex uk-flex-center">
+                    <p style="color: red; font-weight: bold; font-size: 14px; white-space: pre-line">@Model.ErrorMessage</p>
+                </div>
+            }
+
+        <div class="uk-align-right uk-margin-remove-bottom">
+            <div class="loading-spinner" id="loading-spinner"></div>
+            <button class="uk-button uk-button-primary" type="submit" id="submit-button">Entrar</button>
+        </div>
+        </fieldset>
+    </div>
+}
+
+@section Scripts {
+    <script>
+        $("#login-form").submit(() => {
+            $("#submit-button").hide();
+            $("#loading-spinner").show();
+        })
+    </script>
+}

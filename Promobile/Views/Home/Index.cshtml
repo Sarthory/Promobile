@@ -1,0 +1,117 @@
+﻿@using Promobile.Models.Utils
+@model Promobile.ViewModels.HomeViewModel
+
+@{
+    ViewData["Title"] = "Início";
+}
+
+<h1 class="page-title">Promobile (@Model.RegionName)</h1>
+
+<div uk-grid>
+    <div class="uk-width-1-2">
+        <div class="uk-overflow-auto">
+            <div style="max-height: 75vh !important; overflow: auto">
+
+                <h2 class="page-title-small">Banners cadastrados</h2>
+
+                @if (Model.Banners.Any())
+                {
+                <table class="uk-table uk-table-small uk-table-divider">
+                    <thead>
+                        <tr>
+                            <th style="width: 300px">Nome</th>
+                            <th>Imagens</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var banner in Model.Banners)
+                            {
+                        <tr>
+                            <td>@banner.Name</td>
+                            <td>
+                                <img src="@banner.ImagePath" width="50" />
+                                <img src="@banner.MobileImagePath" width="50" />
+                            </td>
+                            <td>@(banner.Status == Status.Active ? Html.Raw($"<span style='color: MediumSeaGreen'>Ativo</span>") : Html.Raw($"<span style='color: red'>Inativo</span>"))</td>
+                            <td class="uk-text-right">
+                                <a title="Editar Banner" style="color: #0099FF" href="@Url.Action("Edit","Banners", new{ bId = banner.Id })" class="uk-icon-link uk-margin-small-right" uk-icon="file-edit"></a>
+                            </td>
+                        </tr>
+                            }
+                    </tbody>
+                </table>
+                }
+                else
+                {
+                <div class="uk-alert-warning" uk-alert>
+                    <a class="uk-alert-close" uk-close></a>
+                    <p>Nenhum banner cadastrado até o momento.</p>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="uk-width-1-2">
+        <div class="uk-overflow-auto">
+            <div style="max-height: 75vh !important; overflow: auto">
+
+                <h2 class="page-title-small">Produtos cadastrados</h2>
+
+                @if (Model.PromotionalProducts.Any())
+                {
+                <table class="uk-table uk-table-small uk-table-divider">
+                    <thead>
+                        <tr>
+                            <th style="width: 300px">Nome</th>
+                            <th>Imagem</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var product in Model.PromotionalProducts)
+                            {
+                        <tr>
+                            <td>@product.Name</td>
+                            <td>
+                                <img src="@product.ImagePath" width="50" />
+                            </td>
+                            <td>@(product.Status == Status.Active ? Html.Raw($"<span style='color: MediumSeaGreen'>Ativo</span>") : Html.Raw($"<span style='color: red'>Inativo</span>"))</td>
+                            <td class="uk-text-right">
+                                <a title="Editar Produto" style="color: #0099FF" href="@Url.Action("Edit","Products", new{ pId = product.Id })" class="uk-icon-link uk-margin-small-right" uk-icon="file-edit"></a>
+                            </td>
+                        </tr>
+                            }
+                    </tbody>
+                </table>
+                }
+                else
+                {
+                <div class="uk-alert-warning" uk-alert>
+                    <a class="uk-alert-close" uk-close></a>
+                    <p>Nenhum produto cadastrado até o momento.</p>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    @if (ViewBag.SuccessMessage != null)
+    {
+    <script>
+            swal("Operação concluída", `@ViewBag.SuccessMessage`, "success");
+    </script>
+    }
+
+    @if (ViewBag.ErrorMessage != null)
+    {
+    <script>
+            swal("Ocorreu um erro", `@ViewBag.ErrorMessage`, "error");
+    </script>
+    }
+}

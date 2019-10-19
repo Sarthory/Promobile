@@ -1,0 +1,96 @@
+﻿@using System.Security.Claims
+
+@{
+    ClaimsPrincipal loggedUser = User;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>@ViewData["Title"] - Promobile</title>
+
+    <link rel="stylesheet" href="~/lib/ui-kit/css/uikit.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <script src="~/lib/ui-kit/js/uikit.min.js"></script>
+    <script src="~/lib/ui-kit/js/uikit-icons.min.js"></script>
+    <script src="~/lib/sweet-alert/sweetalert.min.js"></script>
+</head>
+<body>
+    <header>
+        <nav class="uk-navbar-container navbar" uk-navbar="mode: click">
+            <div class="uk-navbar-left" uk-toggle="target: #side-menu-push">
+                <a class="uk-navbar-toggle" uk-navbar-toggle-icon href="#"></a>
+            </div>
+
+            <div class="uk-navbar-left">
+                <a href="@Url.Action("Index","Home")" style="color: white">
+                    <span uk-icon="home" style="margin-bottom: 5px"></span>
+                </a>
+            </div>
+
+            <a href="@Url.Action("Index","Home")" class="uk-navbar-center uk-logo">
+                <img src="~/img/logo-magalu_2.png" width="80" />
+            </a>
+
+            <div class="uk-navbar-right">
+                <ul class="uk-navbar-nav">
+                    <li>
+                        <a class="logged-user-name" href="#">
+                            @loggedUser.Identity.Name&nbsp;
+                            <span uk-icon="triangle-down"></span>
+                        </a>
+                        <div class="uk-navbar-dropdown">
+                            <ul class="uk-nav uk-navbar-dropdown-nav">
+                                <li>
+                                    <a href="@Url.Action("Logout", "Login")" uk-icon="icon: sign-out" class="uk-button-text">
+                                        Sair
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+
+            </div>
+        </nav>
+    </header>
+
+    <div id="side-menu-push" uk-offcanvas="mode: push; overlay: true">
+        <div class="uk-offcanvas-bar">
+
+            <button class="uk-offcanvas-close" type="button" uk-close></button>
+
+            <h3>Promobile</h3>
+
+            <ul class="uk-list uk-list-divider">
+                <li>
+                    <a href="@Url.Action("Create","Products")">
+                        <span uk-icon="plus-circle"></span>
+                        Cadastrar Novo Produto
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Create","Banners")">
+                        <span uk-icon="plus-circle"></span>
+                        Cadastrar Novo Banner
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="uk-container">
+        <main role="main" class="uk-padding-small">
+            @RenderBody()
+        </main>
+    </div>
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

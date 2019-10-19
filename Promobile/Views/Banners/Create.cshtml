@@ -1,0 +1,95 @@
+﻿@{
+    ViewData["Title"] = "Cadastrar Novo Banner";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="page-title">Cadastrar novo banner</h1>
+
+<div class="uk-container">
+
+    <form asp-action="CreateBanner" id="banner-form" enctype="multipart/form-data">
+
+        @Html.AntiForgeryToken()
+
+        <fieldset class="uk-fieldset">
+            <div class="uk-grid-match uk-grid-small" uk-grid>
+                <div class="uk-width-3-4@m">
+                    <div class="uk-margin">
+                        <label class="uk-form-label" for="BannerName">Nome do banner</label>
+                        <div class="uk-form-controls">
+                            <input class="uk-input" id="BannerName" type="text" name="BannerName" placeholder="Nome" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="uk-width-1-4@m">
+                    <div class="uk-margin">
+                        <label class="uk-form-label" for="ExpiryDate">Data de Expiração</label>
+                        <div class="uk-form-controls">
+                            <input class="uk-input" id="ExpiryDate" type="date" name="ExpiryDate" placeholder="Data" required />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="uk-grid-match uk-grid-small" uk-grid>
+                <div>
+                    <div class="uk-margin">
+                        <label class="uk-form-label" for="mobileBannerImage">Banner Mobile</label><br />
+                        <div uk-form-custom="target: true">
+                            <input name="mobileBannerImage" id="mobileBannerImage" type="file" accept=".jpg, .jpeg, .png, .gif" onchange="document.getElementById('MobileBannerImagePreview').src = window.URL.createObjectURL(this.files[0])" required>
+                            <input class="uk-input uk-form-width-large" type="text" placeholder="Clique para selecionar a imagem..." disabled>
+                        </div>
+
+                        <img id="MobileBannerImagePreview" alt="MobileBannerImage" width="100" height="100" style="margin-left: 15px;" />
+                    </div>
+                </div>
+
+                <div>
+                    <div class="uk-margin">
+                        <label class="uk-form-label" for="bannerImage">Banner</label><br />
+                        <div uk-form-custom="target: true">
+                            <input id="bannerImage" name="bannerImage" type="file" accept=".jpg, .jpeg, .png, .gif" onchange="document.getElementById('BannerImagePreview').src = window.URL.createObjectURL(this.files[0])" required>
+                            <input class="uk-input uk-form-width-large" type="text" placeholder="Clique para selecionar a imagem..." disabled>
+                        </div>
+
+                        <img id="BannerImagePreview" alt="BannerImage" width="100" height="100" style="margin-left: 15px;" />
+                    </div>
+                </div>
+            </div>
+
+            <hr />
+
+            <div class="uk-margin uk-flex uk-flex-between">
+                <a href="@Url.Action("Index", "Home")" class="uk-button uk-button-danger">Cancelar</a>
+                <button type="submit" class="uk-button uk-button-primary">Salvar</button>
+            </div>
+
+        </fieldset>
+    </form>
+
+</div>
+
+@section Scripts
+{
+    @if (ViewBag.SuccessMessage != null)
+    {
+        <script>
+            swal("Operação concluída", `@ViewBag.SuccessMessage`, "success");
+        </script>
+    }
+
+    @if (ViewBag.ErrorMessage != null)
+    {
+        <script>
+            swal("Ocorreu um erro", `@ViewBag.ErrorMessage`, "error");
+        </script>
+    }
+
+    <script>
+        $(function () {
+            $('[type="date"]').prop('min', function () {
+                return new Date().toJSON().split('T')[0];
+            });
+        });
+    </script>
+}

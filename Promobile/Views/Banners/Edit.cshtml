@@ -1,0 +1,82 @@
+﻿@model Promobile.Models.Banner
+@using Promobile.Models.Utils
+
+@{
+    ViewData["Title"] = "Editar Banner";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="page-title">Editar banner</h1>
+
+<div class="uk-container">
+
+    <form asp-action="EditBanner" id="banner-form" enctype="multipart/form-data">
+
+        @Html.AntiForgeryToken()
+        <input type="hidden" name="BannerId" value="@Model.Id" />
+
+        <fieldset class="uk-fieldset">
+            <div class="uk-grid-match uk-grid-small" uk-grid>
+                <div class="uk-width-1-2@m">
+                    <div class="uk-margin">
+                        <label class="uk-form-label" for="BannerName">Nome do banner</label>
+                        <div class="uk-form-controls">
+                            <input class="uk-input" id="BannerName" type="text" name="BannerName" placeholder="Nome" required value="@Model.Name">
+                        </div>
+                    </div>
+                </div>
+                <div class="uk-width-1-4@m">
+                    <div class="uk-margin">
+                        <label class="uk-form-label" for="ExpiryDate">Data de Expiração</label>
+                        <div class="uk-form-controls">
+                            <input class="uk-input" id="ExpiryDate" type="date" name="ExpiryDate" placeholder="Data" required value="@Model.ExpiryDate.ToString("yyyy-MM-dd")" />
+                        </div>
+                    </div>
+                </div>
+                <div class="uk-width-1-4@m">
+                    <div class="uk-margin">
+                        <label class="uk-form-label" for="BannerStatus">Status</label>
+                        <select class="uk-select" id="BannerStatus" name="BannerStatus" required>
+                            <option disabled selected>Selecione</option>
+                            <!option value="@(Convert.ToInt32(Status.Active))" @(Model.Status == Status.Active ? "selected" : null)>Ativo</!option>
+                            <!option value="@(Convert.ToInt32(Status.Inactive))" @(Model.Status == Status.Inactive ? "selected" : null)>Inativo</!option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <hr />
+
+            <div class="uk-flex uk-flex-around">
+                <div>
+                    <label>Banner</label><br />
+                    <img src="@Model.ImagePath" alt="Imagem" width="200" />
+                </div>
+                <div>
+                    <label>Banner Mobile</label><br />
+                    <img src="@Model.MobileImagePath" alt="Imagem Mobile" width="200" />
+                </div>
+            </div>
+
+            <hr />
+
+            <div class="uk-margin uk-flex uk-flex-between">
+                <a href="@Url.Action("Index", "Home")" class="uk-button uk-button-danger">Cancelar</a>
+                <button type="submit" class="uk-button uk-button-primary">Salvar</button>
+            </div>
+
+        </fieldset>
+    </form>
+
+</div>
+
+@section Scripts
+{
+    <script>
+        $(function () {
+            $('[type="date"]').prop('min', function () {
+                return new Date().toJSON().split('T')[0];
+            });
+        });
+    </script>
+}

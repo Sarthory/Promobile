@@ -1,0 +1,180 @@
+﻿@using Promobile.Models.Utils
+@model Promobile.Models.PromotionalProduct
+
+@{
+    ViewData["Title"] = "Editar Produto";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="page-title">Editar produto</h1>
+
+<div class="uk-container">
+
+    <form asp-action="EditProduct" id="product-form" enctype="multipart/form-data">
+
+        @Html.AntiForgeryToken()
+
+        <input type="hidden" name="ProductId" value="@Model.Id" />
+
+        <fieldset class="uk-fieldset">
+
+            <div class="uk-grid-match uk-grid-small" uk-grid>
+                <div class="uk-width-1-2@m">
+                    <div class="uk-margin">
+                        <label class="uk-form-label" for="ProductName">Nome do produto</label>
+                        <div class="uk-form-controls">
+                            <input class="uk-input" id="ProductName" type="text" name="ProductName" placeholder="Nome" required value="@Model.Name">
+                        </div>
+                    </div>
+                </div>
+                <div class="uk-width-1-4@m">
+                    <div class="uk-margin">
+                        <label class="uk-form-label" for="ProductCategory">Categoria</label>
+                        <select class="uk-select" id="ProductCategory" disabled>
+                            <option disabled selected>@Model.ProductCategory.Description</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="uk-width-1-4@m">
+                    <div class="uk-margin">
+                        <label class="uk-form-label" for="ExpiryDate">Data de Expiração</label>
+                        <div class="uk-form-controls">
+                            <input class="uk-input" id="ExpiryDate" type="date" name="ExpiryDate" placeholder="Data" required value="@Model.ExpiryDate.ToString("yyyy-MM-dd")" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="uk-grid-match uk-grid-small" uk-grid>
+                <div class="uk-width-1-2">
+                    <div class="uk-margin">
+                        <label class="uk-form-label" for="FeaturedText">Texto de Destaque</label>
+                        <div class="uk-form-controls">
+                            <input class="uk-input" id="FeaturedText" type="text" name="FeaturedText" placeholder="Texto de destaque opcional" value="@Model.FeaturedOptionalText" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="uk-width-1-6">
+                    <div class="uk-margin">
+                        <label class="uk-form-label" for="InCashPrice">Valor à Vista</label>
+                        <div class="uk-form-controls">
+                            <input class="uk-input" id="InCashPrice" type="text" name="InCashPrice" placeholder="R$" required value="@Model.InCashPrice" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="uk-width-1-6">
+                    <div class="uk-margin">
+                        <label class="uk-form-label" for="ForwardedPrice">Valor à Prazo</label>
+                        <div class="uk-form-controls">
+                            <input class="uk-input" id="ForwardedPrice" type="text" name="ForwardedPrice" placeholder="R$" required value="@Model.ForwardedPrice" />
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="uk-width-1-6">
+                    <div class="uk-margin">
+                        <label class="uk-form-label" for="ParcelValue">Valor da Parcela</label>
+                        <div class="uk-form-controls">
+                            <input class="uk-input" id="ParcelValue" type="text" name="ParcelValue" placeholder="R$" required value="@Model.ParcelValue" />
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="uk-grid-match uk-grid-small" uk-grid>
+                <div class="uk-width-1-2">
+                    <div class="uk-width-1-4">
+                        <div class="uk-margin">
+                            <label class="uk-form-label" for="InputParcelsQuantity">Entrada</label>
+                            <div class="uk-form-controls">
+                                <input class="uk-input uk-form-width-small" id="InputParcelsQuantity" type="text" name="InputParcelsQuantity" required value="@Model.InputParcelsQuantity" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="uk-width-1-4">
+                        <div class="uk-margin">
+                            <label class="uk-form-label" for="ParcelsQuantity">Parcelas</label>
+                            <div class="uk-form-controls">
+                                <input class="uk-input uk-form-width-small" id="ParcelsQuantity" type="text" name="ParcelsQuantity" required value="@Model.ParcelsQuantity" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="uk-width-1-4">
+                        <div class="uk-margin">
+                            <label class="uk-form-label" for="YearlyTax">Taxa Anual</label>
+                            <div class="uk-form-controls">
+                                <input class="uk-input uk-form-width-small" id="YearlyTax" type="text" name="YearlyTax" required value="@Model.YearlyTax" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="uk-width-1-4">
+                        <div class="uk-margin">
+                            <label class="uk-form-label" for="MonthlyTax">Taxa Mensal</label>
+                            <div class="uk-form-controls">
+                                <input class="uk-input uk-form-width-small" id="MonthlyTax" type="text" name="MonthlyTax" required value="@Model.MonthlyTax" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="uk-width-1-4">
+                    <div class="uk-margin">
+                        <label class="uk-form-label" for="ProductStatus">Status</label><br />
+                        <select class="uk-select" id="ProductStatus" name="ProductStatus" required>
+                            <option disabled selected>Selecione</option>
+                            <!option value="@(Convert.ToInt32(Status.Active))" @(Model.Status == Status.Active ? "selected" : null)>Ativo</!option>
+                            <!option value="@(Convert.ToInt32(Status.Inactive))" @(Model.Status == Status.Inactive ? "selected" : null)>Inativo</!option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <hr />
+
+            <div class="uk-flex">
+                <div>
+                    <label>Imagem</label><br />
+                    <img src="@Model.ImagePath" alt="Imagem" width="180" />
+                </div>
+            </div>
+
+            <hr />
+
+            <div class="uk-margin uk-flex uk-flex-between">
+                <a href="@Url.Action("Index", "Home")" class="uk-button uk-button-danger">Cancelar</a>
+                <button type="submit" class="uk-button uk-button-primary">Salvar</button>
+            </div>
+
+        </fieldset>
+    </form>
+
+</div>
+
+@section Scripts
+{
+    <script type="text/javascript" src="~/lib/jquery.mask.min.js"></script>
+    <script type="text/javascript" src="~/lib/jquery.maskMoney.min.js"></script>
+
+    <script>
+        $(function () {
+            $('[type="date"]').prop('min', function () {
+                return new Date().toJSON().split('T')[0];
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            $("#InCashPrice").maskMoney({ thousands: '.', decimal: ',', allowZero: true, prefix: 'R$ ' });
+            $("#ForwardedPrice").maskMoney({ thousands: '.', decimal: ',', allowZero: true, prefix: 'R$ ' });
+            $("#ParcelValue").maskMoney({ thousands: '.', decimal: ',', allowZero: true, prefix: 'R$ ' });
+            $("#MonthlyTax").mask('##0,00%', { reverse: true });
+            $("#YearlyTax").mask('##0,00%', { reverse: true });
+        });
+    </script>
+}
