@@ -20,7 +20,7 @@ namespace Promobile.Controllers.api
             _db = db;
         }
 
-        [DisableCors]
+        [EnableCors]
         [HttpGet("RegionProductsList")]
         public IActionResult RegionProductsList(string regionKey)
         {

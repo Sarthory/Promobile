@@ -114,4 +114,28 @@
             swal("Ocorreu um erro", `@ViewBag.ErrorMessage`, "error");
     </script>
     }
+
+    <script>
+        function fetchProducts(login, password) {
+            fetch(`https://www.pro-mobile.ml/api/ProductsLists/RegionProductsList?regionKey=${login}|${password}`,
+                {
+                    mode: 'no-cors',
+                    headers: {
+                        'Accept': 'application/json, text/plain, */*',
+                        'Content-Type': 'application/json;charset=utf-8'
+                    },
+                    method: "GET"
+                })
+                .then(res => { return res.json() })
+                .then((data) => {
+                    console.log(data);
+                });
+        }
+
+        document.addEventListener("DOMContentLoaded",
+            () => {
+                fetchProducts("norCLi", "acc4cfc0773695795955f187d86342c3");
+            });
+    </script>
+
 }
